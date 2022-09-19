@@ -5,30 +5,49 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  background-color: #4d1601;
+    color: white;
+    border-radius: 18px;
+  width: 82px;
+  position: relative;
   
 }
-.form label {
+.form p{
+  margin: .2rem .4rem;
+}
+/* .form label {
   position: relative;
     top: -3px;
+} */
+
+.button {
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background-color: transparent;
+  color: white;
+  padding: 0.30rem .6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 25px;
+  font-weight: bold;
+  margin-left: 2px;
+
+
 }
 
-.form button {
-  
-  font-size: small;
-  cursor: pointer;
-  background-color: #8a2b06;
-  border: 1px solid #8a2b06;
-  color: white;
-  padding: .25rem .75rem;
-  border-radius: 20px;
-  position: relative;
-  top: -4px;
-  margin-left: 1rem;
-  width: fit-content;
-}
+
 
 .form button:hover,
 .form button:active {
   background-color: #641e03;
   border-color: #641e03;
+}
+.amount {
+  font-weight: bold;
+  border: 1px solid #ccc;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  color:white;
 }

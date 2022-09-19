@@ -1,14 +1,32 @@
 import CartContext from "../../store-context/cart-context";
 import classes from "./HeaderCartButton.module.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const HeaderCartButton = (props) => {
   const cartCtx = useContext(CartContext);
   const cartItems = cartCtx.items.reduce((currCount, item) => {
     return currCount + item.amount;
   }, 0);
+
+  const [highlightBtn, setHighlightBtn] = useState(false);
+  const btnClasses = `${classes.button} ${highlightBtn ? classes.bump : ""}`;
+  const { items } = cartCtx;
+
+  useEffect(() => {
+    if (items.length === 0) {
+      return;
+    }
+    setHighlightBtn(true);
+    const timer = setTimeout(() => {
+      setHighlightBtn(false);
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [items]);
+
   return (
-    <button className={classes.button} onClick={props.onClick}>
+    <button className={btnClasses} onClick={props.onClick}>
       <span className={classes.icon}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

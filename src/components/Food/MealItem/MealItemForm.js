@@ -1,32 +1,46 @@
 import classes from "./MealItemForm.module.css";
-import Input from "../../UI/Input";
-import { useRef } from "react";
+
+import { useContext, useEffect, useState } from "react";
+import CartContext from "../../../store-context/cart-context";
 
 const MealItemForm = (props) => {
-  const qtyInputRef = useRef();
-  const addHandler = (event) => {
-    event.preventDefault();
-    const enteredQty = +qtyInputRef.current.value;
+  const [itemQty, setItemQty] = useState(0);
+  const [cartQty, setCartQty] = useState(0);
+  const cartCtx = useContext(CartContext);
+  const hasItems = cartCtx.items.length > 0;
+  let existingCartItem = {
+    // amount: 0,
+  };
 
-    props.onAddToCart(enteredQty);
+  if (hasItems) {
+    const existingCartItemIndex = cartCtx.items.findIndex(
+      (item) => item.id === props.id
+    );
+    // console.log(props.id);
+    existingCartItem = cartCtx.items[existingCartItemIndex];
+  }
+
+  const increaseQty = () => {
+    setItemQty(itemQty + 1);
+    props.onAddToCart(1);
+  };
+  const decreaseQty = () => {
+    if (itemQty > 0) {
+      setItemQty(itemQty - 1);
+      props.onRemove();
+    }
   };
 
   return (
-    <form className={classes.form} onSubmit={addHandler}>
-      <Input
-        ref={qtyInputRef}
-        label="Qty"
-        input={{
-          id: "amount_" + props.id,
-          type: "number",
-          min: "1",
-          max: "5",
-          step: "1",
-          defaultValue: "1",
-        }}
-      />
-      <button>Add</button>
-    </form>
+    <div className={classes.form}>
+      <button onClick={decreaseQty} className={classes.button}>
+        -
+      </button>
+      {existingCartItem ? <p>{existingCartItem.amount}</p> : <p> </p>}
+      <button onClick={increaseQty} className={classes.button}>
+        +
+      </button>
+    </div>
   );
 };
 

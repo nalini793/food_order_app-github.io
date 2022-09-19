@@ -1,6 +1,6 @@
 import classes from "./MealItem.module.css";
 import MealItemForm from "./MealItemForm";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CartContext from "../../../store-context/cart-context";
 
 const MealItem = (props) => {
@@ -14,15 +14,25 @@ const MealItem = (props) => {
       price: props.price,
     });
   };
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
 
   return (
     <li className={classes.meal}>
       <div>
         <h3>{props.name}</h3>
         <div className={classes.description}>{props.description}</div>
-        <div className={classes.price}>₹{props.price}</div>
         <div className={classes.form}>
-          <MealItemForm id={props.id} onAddToCart={addToCartHandler} />
+          <div className={classes.price}>₹{props.price}</div>
+
+          <MealItemForm
+            showqty={props.amount}
+            id={props.id}
+            onRemove={cartItemRemoveHandler.bind(null, props.id)}
+            onAddToCart={addToCartHandler}
+            itemsArray={cartCtx.items}
+          />
         </div>
       </div>
 

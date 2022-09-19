@@ -16,7 +16,7 @@ const Cart = (props) => {
     cartCtx.addItem({ ...item, amount: 1 });
   };
   function orderBtnHandler() {
-    console.log("ordering...");
+    cartCtx.clearCart();
   }
 
   const cartItems = (
