@@ -1,11 +1,10 @@
 import classes from "./MealItemForm.module.css";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import CartContext from "../../../store-context/cart-context";
 
 const MealItemForm = (props) => {
   const [itemQty, setItemQty] = useState(0);
-  const [cartQty, setCartQty] = useState(0);
   const cartCtx = useContext(CartContext);
   const hasItems = cartCtx.items.length > 0;
   let existingCartItem = {
